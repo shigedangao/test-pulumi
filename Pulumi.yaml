@@ -1,0 +1,3 @@
+name: ts-charts
+runtime: nodejs
+description: A minimal Kubernetes TypeScript Pulumi program
