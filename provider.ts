@@ -1,6 +1,6 @@
 const PROVIDER = {
-    dev: "dev provider",
-    prod: "prod provider"
+    dev: "dev",
+    prod: "prod"
 };
 
 /**

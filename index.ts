@@ -1,9 +1,10 @@
 import * as k8s from "@pulumi/kubernetes";
-import * as kx from "@pulumi/kubernetesx"
 import * as pulumi from '@pulumi/pulumi';
 import * as provider from './provider';
 import * as env from './env';
 import * as cnf from './conf';
+import * as secrets from './secrets';
+import * as kubectl from './kubectl';
 
 // Example of deploying a project like pardillo
 const ENV: string = pulumi.getStack();
@@ -16,8 +17,12 @@ const appLabels = {
 };
 
 const envs = env.getEnvFromStack(ENV);
+const sec = secrets.getSecret();
 
-const resources = k8s.types.input
+
+if (!kubectl.check_environment(ENV)) {
+    throw new Error('Wrong stack for targeted cluster');
+}
 
 const deployment = new k8s.apps.v1.Deployment(`${APP_NAME}-${ENV}`, {
     spec: {
@@ -27,12 +32,13 @@ const deployment = new k8s.apps.v1.Deployment(`${APP_NAME}-${ENV}`, {
             metadata: { labels: appLabels },
             spec: { containers: [{
                     name: `${APP_NAME}-${ENV}`,
-                    image: `${provider.get_provider(ENV)}lol:${IMAGE_VERSION}`,
+                    image: `${provider.get_provider(ENV)}pp:${IMAGE_VERSION}`,
                     envFrom: [
                         { configMapRef: { name: envs.pardillo.metadata.name } },
                         { configMapRef: { name: envs.weebly.metadata.name } },
                         { configMapRef: { name: envs.halcon.metadata.name } },
-                        { configMapRef: { name: envs.misc.metadata.name } }
+                        { configMapRef: { name: envs.misc.metadata.name } },
+                        { secretRef:    { name: sec.metadata.name }}
                     ],
                     volumeMounts: [{
                         name: 'elastic-cert',

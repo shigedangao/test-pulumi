@@ -1,1 +1,10 @@
+secretsprovider: gcpkms://projects/<project>/locations/global/keyRings/sops/cryptoKeys/mykey
+encryptedkey: CiQA+jEWjV+RsTXOj/rsRxy0btHoSpecWggwuIF+DbhqJ0TWKrMSSQABsJE8YFwPPKl4OXxxo2XksWDikcWIH/6xoq1Pd3KrfL82xqBY2mhfsv0ZQVT3uCeoKZKMSZWZ+INAsDrd1yKwHW3cMVY0GUg=
 encryptionsalt: v1:lSXQnAq1eKk=:v1:Bh5jlFoN5H5oT7Wn:nbLZ0jdDF8aW6V9NhB/xwOjVech6eg==
+config:
+  ts-charts:db_host:
+    secure: v1:GA9PXyQ88Nh1L9bu:aZ6r2W6Dl/M+Aa88AfND4FomY/+6kQRV
+  ts-charts:db_password:
+    secure: v1:A7kXDIBiV+a39VZM:tyGzwRghLIbDEJBN9jKsjfQ5y2w=
+  ts-charts:db_user:
+    secure: v1:0eSQN9ZFhOaSyxwT:uYMGG78odkqs4Nkif8hbDhOnA8wzgD4=
